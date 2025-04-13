@@ -5,8 +5,11 @@ import { RouteProp } from '@react-navigation/native';
 import Home from './src/pages/Home';
 import Landing from './src/pages/Landing';
 import Login from './src/pages/Login';
+import ForgotPassword from './src/pages/ForgotPassword';
 import {RootStackParamList} from './src/types/navigation'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import Signup from './src/pages/Signup';
+import Toast from 'react-native-toast-message';
 // Define the navigation stack types
 
 type ScreenProps<T extends keyof RootStackParamList> = {
@@ -25,9 +28,12 @@ function App(){
         <Stack.Screen name="Landing" component={Landing} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Signup" component={Signup} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
         {/* <Stack.Screen name="Profile" component={ProfileScreen} /> */}
         {/* <Stack.Screen name="Settings" component={SettingsScreen} /> */}
       </Stack.Navigator>
+      <Toast/>
     </NavigationContainer>
     </SafeAreaProvider>
   );
