@@ -4,9 +4,9 @@ import { RootStackParamList } from '../types/navigation';
 import HomeScreenTile from '../components/HomeScreenTile';
 
 
-import doctorImage from '../../assets/pictures/calendar3.jpeg';
-import doctorImage2 from '../../assets/pictures/calendar.jpeg';
-import doctorImage3 from '../../assets/pictures/calendar2.jpg';
+import doctorImage from '../../assets/pictures/Institutions4.jpg';
+import InstitutionsImage from '../../assets/pictures/Institutions3.jpg';
+import calendarImage from '../../assets/pictures/calendar2.jpg';
 import {
   Button,
   ScrollView,
@@ -37,37 +37,34 @@ const Home: React.FC<Props> = ({ navigation }) =>{
   const safePadding = '5%';
 
   return (
+    <ScrollView>
     <View style={styles.page}>
-      
-      <Text>This is the Home Page</Text>
-      <Button
-      title='Go to Landing'
-      onPress={()=>navigation.navigate('Landing')}
-      />
+
       <HomeScreenTile 
       navigation = {navigation}
-      page = {'Landing'}
-      imageSource = {doctorImage2}
+      page = {'Appointments'}
+      imageSource = {calendarImage}
       title = {'Appointments'}
-      paragraph={'We are here to help you, with whateever you need!'}
+      paragraph={'Manage your schedule with ease—view upcoming appointments or book time with a doctor in seconds.'}
+      ></HomeScreenTile>
+
+      <HomeScreenTile 
+      navigation = {navigation}
+      page = {'Institutions'}
+      imageSource = {InstitutionsImage}
+      title = {'Institutions'}
+      paragraph={'Discover nearby medical institutions at a glance and easily add new ones to your list for quick access.'}
       ></HomeScreenTile>
 
       <HomeScreenTile 
       navigation = {navigation}
       page = {'Landing'}
       imageSource = {doctorImage}
-      title = {'Appointments'}
-      paragraph={'We are here to help you, with whateever you need!'}
-      ></HomeScreenTile>
-
-      <HomeScreenTile 
-      navigation = {navigation}
-      page = {'Landing'}
-      imageSource = {doctorImage3}
-      title = {'Appointments'}
-      paragraph={'We are here to help you, with whateever you need!'}
+      title = {'Temp'}
+      paragraph={'We are here to help you, with whatever you need!'}
       ></HomeScreenTile>
     </View>
+    </ScrollView>
 
   );
 }
@@ -78,6 +75,7 @@ const styles = StyleSheet.create({
     paddingTop:20,
     flexDirection: 'column',
     alignItems: 'center',
+    gap:10
   },
   
 });

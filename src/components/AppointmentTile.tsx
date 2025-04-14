@@ -10,16 +10,12 @@ import {
 } from 'react-native';
 
 type Props = {
-  imageSource: any;
-  page: string;
-  navigation: any;
-  title: any;
-  paragraph: any;
+  appointment:any;
 };
   
-const HomeScreenTile=({ imageSource, page, navigation, title, paragraph}: Props)=>{
+const AppointmentTile=({ appointment}: Props)=>{
     const handleClick=()=>{
-        navigation.navigate(page);
+        console.log("clicked")
 
     }
     return(
@@ -27,24 +23,7 @@ const HomeScreenTile=({ imageSource, page, navigation, title, paragraph}: Props)
     style={styles.outerTile}
     
     >
-        <Image
-            style={styles.image}
-            source={imageSource}
-        />
-        <View style={styles.description}>
-            <View style={styles.titleView}>
-            <Text style = {styles.titleStyle}>{title}</Text>
-            </View>
-            <View style={styles.shortDescriptionView}>
-            <Text style = {styles.shortDescription}>{paragraph}</Text>
-            <View style={{height:2}}></View>
-            <TouchableOpacity style={{height:20}}
-            onPress={ ()=>{handleClick()}}
-            ><Text
-            >Read more</Text></TouchableOpacity>
-            </View>
-            
-        </View>
+        
     </View>    
     );
 }
@@ -89,4 +68,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default HomeScreenTile;
+export default AppointmentTile;
