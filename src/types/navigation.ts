@@ -7,4 +7,5 @@ export type RootStackParamList = {
     Profile: undefined;
     Appointments:undefined;
     Institutions:undefined;
+    Appointment:undefined;
   };

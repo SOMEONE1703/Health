@@ -8,7 +8,7 @@ import Toast from 'react-native-toast-message';
 //import { Image } from 'react-native-reanimated/lib/typescript/Animated';
 
 type Props = {
-  navigation: StackNavigationProp<RootStackParamList, 'Home'>;
+  navigation: StackNavigationProp<RootStackParamList, 'Signup'>;
 };
 // const response=await fetch(`${BASE_URL}/api/appointments`);
 const Signup : React.FC<Props> = ({navigation}) =>{

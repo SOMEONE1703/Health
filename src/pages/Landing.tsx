@@ -19,7 +19,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 type Props = {
-  navigation: StackNavigationProp<RootStackParamList, 'Home'>;
+  navigation: StackNavigationProp<RootStackParamList, 'Landing'>;
 };
 
 const Landing: React.FC<Props> = ({ navigation }) =>{

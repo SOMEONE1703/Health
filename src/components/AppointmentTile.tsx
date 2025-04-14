@@ -13,10 +13,10 @@ type Props = {
   appointment:any;
 };
   
-const AppointmentTile=({ appointment}: Props)=>{
+const AppointmentTile=({appointment}: Props)=>{
     const handleClick=()=>{
         console.log("clicked")
-
+        
     }
     return(
     <View
