@@ -56,7 +56,8 @@ const Login : React.FC<Props> = ({navigation}) =>{
         console.log(response);
         throw new Error(data.error || "Login failed");
       }
-      await AsyncStorage.setItem("Health-Token", JSON.stringify(data)); // has the userId in database
+      await AsyncStorage.setItem("Health-Token", data.token); // has the userId in database
+      //await AsyncStorage.setItem("Health-Role",data.role);
       navigation.navigate("Home");
     }
     catch(error:any){

@@ -11,40 +11,22 @@ import {
 
 import { appointment } from '../types/appointment';
 
-type Props = {
-  appointment:appointment;
-  navigation:any;
-  key:number;
-};
+type Props={
+    title:string;
+}
   
-const AppointmentTile=({key,appointment,navigation}: Props)=>{
-    const handleClick=()=>{
-        console.log("clicked")
-        navigation.navigate("Appointment",{appointment:appointment});
-    }
+const NavBar=({title}:Props)=>{
+    const [MenuOpen,setMenuOpen]=useState(false);
+    const handleMenuClick=()=>{
+        setMenuOpen(!MenuOpen);
+    };
     
     return(
-    <TouchableOpacity
+    <View
     style={styles.outerTile}
-    onPress={()=>handleClick()}
     >
-        <View style={styles.statusHolder}>
-        <View style={appointment.status=="approved"?
-            styles.approved:
-            (appointment.status=="pending"?styles.pending:styles.declined)
-            }/>
         
-        
-        </View>
-        <View style={styles.info}>
-            <Text style={styles.institution}>{appointment.institution}</Text>
-            <Text style={styles.doctor}>{appointment.doctor}</Text>
-            
-        </View>
-        <View style={styles.timeContainer}>
-            <Text style={styles.time}>{appointment.startTime}-{appointment.endTime}</Text>
-        </View>
-    </TouchableOpacity>    
+    </View>    
     );
 }
 
@@ -113,4 +95,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default AppointmentTile;
+export default NavBar;
