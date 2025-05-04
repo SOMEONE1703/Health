@@ -15,7 +15,7 @@ type Props={
     onClose: () => void;
 }
   
-const NavBar=({title,onClose}:Props)=>{
+const SideNavBar=({title,onClose}:Props)=>{
     const [MenuOpen,setMenuOpen]=useState(false);
     const handleMenuClick=()=>{
         setMenuOpen(!MenuOpen);
@@ -37,9 +37,9 @@ const NavBar=({title,onClose}:Props)=>{
         <View
         style={styles.optionsHolder}
         >
-            <Text style={styles.navOption}>Home</Text>
-            <Text style={styles.navOption}>Settings</Text>
-            <Text style={styles.navOption}>Logout</Text>
+            <Text style={styles.navOption}>Health</Text>
+            <Text style={styles.navOption}>Transport</Text>
+            <Text style={styles.navOption}>Retail</Text>
         </View>
         
     </View>    
@@ -54,11 +54,11 @@ const styles = StyleSheet.create({
         //backgroundColor:'transparent',
         backgroundColor:'red',
         left:0,
-        bottom:0,
+        top:'10%',
         // borderBottomColor:'black',
         // borderBottomWidth:1,
         width:'100%',
-        height:'10%',
+        height:500,
     },
     optionsHolder:{
         flexDirection:'column',
@@ -67,9 +67,15 @@ const styles = StyleSheet.create({
         height:'100%',
         elevation:20
     },
+    clickOff:{
+        flexDirection:'column',
+        backgroundColor:'transparent',
+        width:'50%',
+        height:'100%',
+    },
     image:{
-        height:60,
-        width:60,
+        height:50,
+        width:50,
     },
     navOption: {
         color: 'black',
@@ -78,4 +84,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default NavBar;
+export default SideNavBar;

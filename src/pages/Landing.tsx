@@ -51,10 +51,11 @@ const Landing: React.FC<Props> = ({ navigation }) =>{
         </View>
         <View style={{height:5}}></View>
         
-        <TouchableOpacity style={styles.proceedButton}>
+        <TouchableOpacity 
+        onPress={()=>navigateHome()}
+        style={styles.proceedButton}>
           <Text 
           style={{color:"white", fontSize:20}}
-          onPress={()=>navigateHome()}
           >Get Started</Text>
         </TouchableOpacity>
 

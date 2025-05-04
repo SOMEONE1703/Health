@@ -13,11 +13,11 @@ import AppointmentTile from './AppointmentTile';
 import { appointment } from '../types/appointment';
 
 type Props = {
+  key:any;
   appointments: Array<appointment>;
   day: any;
   date: any;
   navigation:any;
-  key:any;
 };
   
 const AppointmentDay=({ key,appointments, day, date,navigation}: Props)=>{

@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
@@ -13,6 +13,7 @@ import {RootStackParamList} from './src/types/navigation'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Signup from './src/pages/Signup';
 import Toast from 'react-native-toast-message';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // Define the navigation stack types
 
 type ScreenProps<T extends keyof RootStackParamList> = {
@@ -22,20 +23,37 @@ type ScreenProps<T extends keyof RootStackParamList> = {
 
 const Stack = createStackNavigator<RootStackParamList>();
 function App(){
+  const [token, setToken] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const getToken = async () => {
+      try{
+      const storedToken = await AsyncStorage.getItem("Health-Token");
+      setToken(storedToken);
+      }catch(e){
+      console.log(e);
+      }
+      
+      setLoading(false);
+    };
+    getToken();
+  }, []);
+  console.log(token);
   return (
     <SafeAreaProvider>
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
       >
-        <Stack.Screen name="Landing" component={Landing} />
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Landing" component={token?Home:Landing} />
+        <Stack.Screen name="Home" component={token?Home:Login} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-        <Stack.Screen name="Appointments" component={Appointments} />
-        <Stack.Screen name="Institutions" component={Institutions} />
-        <Stack.Screen name="Appointment" component={Appointment} />
+        <Stack.Screen name="Appointments" component={token?Appointments:Login} />
+        <Stack.Screen name="Institutions" component={token?Institutions:Login} />
+        <Stack.Screen name="Appointment" component={token?Appointment:Login} />
         {/* <Stack.Screen name="Profile" component={ProfileScreen} /> */}
         {/* <Stack.Screen name="Settings" component={SettingsScreen} /> */}
       </Stack.Navigator>

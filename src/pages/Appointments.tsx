@@ -6,7 +6,7 @@ import { BASE_URL } from '@env';
 import AppointmentDay from '../components/AppointmentDay';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ScrollView } from 'react-native-gesture-handler';
-
+import AppBar from '../components/AppBar';
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Appointments'>;
 };
@@ -147,9 +147,10 @@ const Appointments : React.FC<Props> = ({navigation}) =>{
     getAppointments();
   }, []);
   return (
+    <View style={{paddingTop:20}}>
+    <AppBar title='Appointments'></AppBar>
     <ScrollView>
       <View style={styles.page}>
-        
         {appointmentDays.map((appointmentDay, index)=>
         <AppointmentDay
         key={index} 
@@ -158,13 +159,13 @@ const Appointments : React.FC<Props> = ({navigation}) =>{
         navigation={navigation}></AppointmentDay>)}
       </View>
     </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   page:{
     flex:1,
-    paddingTop:20
   },
   
 });

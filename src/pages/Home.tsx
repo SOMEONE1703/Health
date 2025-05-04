@@ -2,7 +2,7 @@ import React from 'react';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/navigation';
 import HomeScreenTile from '../components/HomeScreenTile';
-
+import AppBar from '../components/AppBar';
 
 import doctorImage from '../../assets/pictures/Institutions4.jpg';
 import InstitutionsImage from '../../assets/pictures/Institutions3.jpg';
@@ -37,9 +37,11 @@ const Home: React.FC<Props> = ({ navigation }) =>{
   const safePadding = '5%';
 
   return (
+    <View style={{paddingTop:20}}>
+    <AppBar title={"Home"}></AppBar>
     <ScrollView>
     <View style={styles.page}>
-
+      
       <HomeScreenTile 
       navigation = {navigation}
       page = {'Appointments'}
@@ -65,14 +67,14 @@ const Home: React.FC<Props> = ({ navigation }) =>{
       ></HomeScreenTile>
     </View>
     </ScrollView>
-
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   page:{
     flex:1,
-    paddingTop:20,
+    paddingTop:5,
     flexDirection: 'column',
     alignItems: 'center',
     gap:10

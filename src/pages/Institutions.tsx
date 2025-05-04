@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/navigation';
+import AppBar from './src/components/AppBar';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Home'>;

@@ -181,10 +181,12 @@ const Signup : React.FC<Props> = ({navigation}) =>{
       />
       
 
-      <TouchableOpacity style={styles.proceedButton}>
+      <TouchableOpacity 
+      onPress={()=>handleSubmit()}
+      style={styles.proceedButton}>
         <Text 
         style={{color:"white", fontSize:20}}
-        onPress={()=>handleSubmit()}
+
         >Sign up</Text>
       </TouchableOpacity>
 
