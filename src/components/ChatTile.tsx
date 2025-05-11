@@ -34,15 +34,7 @@ const HomeScreenTile=({ imageSource, page, navigation, title, paragraph}: Props)
         />
         <View style={styles.description}>
             <View style={styles.titleView}>
-            <Text style = {styles.titleStyle}>{title}</Text>
-            </View>
-            <View style={styles.shortDescriptionView}>
-            <Text style = {styles.shortDescription}>{paragraph}</Text>
-            <View style={{height:2}}></View>
-            <TouchableOpacity style={{height:20}}
-            onPress={ ()=>{handleClick()}}
-            ><Text
-            >Read more</Text></TouchableOpacity>
+                <Text style = {styles.titleStyle}>{title}</Text>
             </View>
             
         </View>
