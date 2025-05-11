@@ -15,9 +15,10 @@ import noUnread from '../../assets/pictures/chat-icon.png';
 
 type Props={
     title:string;
+    navigation:any;
 }
   
-const AppBar=({title}:Props)=>{
+const AppBar=({title,navigation}:Props)=>{
     const [MenuOpen,setMenuOpen]=useState(false);
     const [UnreadMessages,setUnreadMessages]=useState(false);
     const handleMenuClick=()=>{
@@ -25,7 +26,8 @@ const AppBar=({title}:Props)=>{
     };
     const handleChatClick=()=>{
         console.log("chat clicked");
-        setUnreadMessages(!UnreadMessages);
+        //setUnreadMessages(!UnreadMessages);
+        navigation.navigate('ChatScreen');
     };
     
     return(
@@ -54,7 +56,7 @@ const AppBar=({title}:Props)=>{
                     source={UnreadMessages?unread:noUnread}
                     />
                 </TouchableOpacity>
-                {MenuOpen&&<SideNavBar title={`${title}`} onClose={handleMenuClick}/>}
+                {MenuOpen&&<SideNavBar navigation={navigation} onClose={handleMenuClick}/>}
             </View>   
         </View> 
     );

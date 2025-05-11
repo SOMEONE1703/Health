@@ -7,15 +7,12 @@ import AppBar from '../components/AppBar';
 import { BASE_URL } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-type AppointmentScreenRouteProp = RouteProp<RootStackParamList, 'appointment'>;
+type CreateAppointmentScreenRouteProp = RouteProp<RootStackParamList, 'appointment'>;
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Appointment'>;
-  route:AppointmentScreenRouteProp;
 };
 
-
-
-const Appointment : React.FC<Props> = ({navigation,route}) =>{
+const CreateAppointment : React.FC<Props> = ({navigation}) =>{
   const [changed,setChanged]=useState(false);
   const [loading,setLoading]=useState(false);
   const [doctor,setDoctor]=useState("");
@@ -24,7 +21,6 @@ const Appointment : React.FC<Props> = ({navigation,route}) =>{
   const [endTime,setEndTime]=useState("");
   const [location,setLocation]=useState("");
   const [description,setDescription]=useState("");
-  const {appointment}=route.params;
   let token:string|null;
   
   const handleCancelClick=()=>{
@@ -43,7 +39,7 @@ const Appointment : React.FC<Props> = ({navigation,route}) =>{
       }
       const response=await fetch(`${BASE_URL}/api/appointments/${appointment._id}`,
       {
-        method:"PUT",
+        method:"POST",
         headers: {
           "Authorization":`Bearer ${token}`,
           "Content-Type": "application/json"
@@ -65,11 +61,6 @@ const Appointment : React.FC<Props> = ({navigation,route}) =>{
   };
   
   useEffect(()=>{
-    setDoctor(appointment.doctor);
-    setInstitution(appointment.institution);
-    setStartTime(appointment.startTime);
-    setEndTime(appointment.endTime)
-    setDescription("what in the actual fuck");
     const getAppointmentDetails=async()=>{
       token=await AsyncStorage.getItem("Health-Token");
       setLoading(true);
@@ -252,4 +243,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Appointment;
+export default CreateAppointment;

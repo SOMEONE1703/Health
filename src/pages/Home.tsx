@@ -38,7 +38,7 @@ const Home: React.FC<Props> = ({ navigation }) =>{
 
   return (
     <View style={{paddingTop:20}}>
-    <AppBar title={"Home"}></AppBar>
+    <AppBar navigation={navigation} title={"Home"}></AppBar>
     <ScrollView>
     <View style={styles.page}>
       

@@ -148,7 +148,7 @@ const Appointments : React.FC<Props> = ({navigation}) =>{
   }, []);
   return (
     <View style={{paddingTop:20}}>
-    <AppBar title='Appointments'></AppBar>
+    <AppBar navigation={navigation} title='Appointments'></AppBar>
     <ScrollView>
       <View style={styles.page}>
         {appointmentDays.map((appointmentDay, index)=>

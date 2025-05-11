@@ -8,5 +8,8 @@ export type RootStackParamList = {
     Appointments:undefined;
     Institutions:undefined;
     Appointment:undefined;
+    CreateAppointment:undefined;
+    ChatScreen:undefined;
+    Chat:undefined;
     appointment:{appointment:any}
   };

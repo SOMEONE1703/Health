@@ -7,40 +7,71 @@ import {
   View,
   Image,
   TouchableOpacity,
+  Dimensions
 } from 'react-native';
 
 
 type Props={
-    title:string;
+    navigation: any;
     onClose: () => void;
 }
-  
-const SideNavBar=({title,onClose}:Props)=>{
+import tempImage from '../../assets/pictures/tempImage.jpg';
+import HealthImage from '../../assets/pictures/health-image1.png';
+import TransportImage from '../../assets/pictures/transport-image.png';
+import RetailImage from '../../assets/pictures/retail-image.png';
+
+let deviceHeight = Dimensions.get('window').height
+const SideNavBar=({navigation,onClose}:Props)=>{
     const [MenuOpen,setMenuOpen]=useState(false);
     const handleMenuClick=()=>{
         setMenuOpen(!MenuOpen);
     };
-    
+
     return(
     <View
     style={styles.outerTile}
     >
-        <TouchableOpacity
-        onPress={()=>{onClose()}}
-        >
-            <Image
-            
-            style={styles.image}
-            source={require('../../assets/pictures/appbar-icon.png')}
-            />
-        </TouchableOpacity>
+        
         <View
         style={styles.optionsHolder}
         >
-            <Text style={styles.navOption}>Health</Text>
-            <Text style={styles.navOption}>Transport</Text>
-            <Text style={styles.navOption}>Retail</Text>
+            <View style={styles.decorator}>
+                <Image
+                style={styles.decoratorImage}
+                source={tempImage}
+                />
+            </View>
+            <TouchableOpacity onPress={()=>{navigation.navigate("Home")}} style={styles.container}>
+                <View style={styles.textContainer}>
+                    <Image source={HealthImage} style={styles.optionsImage} />
+                </View>
+                <View style={styles.textContainer}>
+                    <Text style={styles.navOption}>Health</Text>
+                </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={()=>{navigation.navigate("Transport")}} style={styles.container}>
+                <View style={styles.textContainer}>
+                    <Image source={TransportImage} style={styles.optionsImage} />
+                </View>
+                <View style={styles.textContainer}>
+                    <Text style={styles.navOption}>Transport</Text>
+                </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={()=>{navigation.navigate("Retail")}} style={styles.container}>
+                <View style={styles.textContainer}>
+                <Image source={RetailImage} style={styles.optionsImage} />
+                </View>
+                <View style={styles.textContainer}>
+                    <Text style={styles.navOption}>Retail</Text>
+                </View>
+            </TouchableOpacity>
         </View>
+        <View
+        style={styles.clickOff}
+        onTouchEnd={onClose}
+        ></View>
         
     </View>    
     );
@@ -51,37 +82,69 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         position:'absolute',
         //elevation:5,
-        //backgroundColor:'transparent',
-        backgroundColor:'red',
+        backgroundColor:'transparent',
+        //backgroundColor:'red',
         left:0,
-        top:'10%',
+        top:0,
         // borderBottomColor:'black',
         // borderBottomWidth:1,
         width:'100%',
-        height:500,
+        height:deviceHeight,
+        zIndex:2,
     },
     optionsHolder:{
         flexDirection:'column',
-        backgroundColor:'yellow',
-        width:'50%',
+        backgroundColor:'#EEE',
+        borderRightWidth:1,
+        borderRightColor:'#000959',
+        width:'70%',
         height:'100%',
-        elevation:20
+        gap:2,
     },
     clickOff:{
         flexDirection:'column',
-        backgroundColor:'transparent',
-        width:'50%',
+        backgroundColor:'black',
+        width:'30%',
         height:'100%',
+        opacity:0.2,
     },
     image:{
-        height:50,
-        width:50,
+        height:32,
+        width:40,
     },
     navOption: {
         color: 'black',
         fontSize: 18,
-        marginVertical: 10,
+        fontWeight: '600',
     },
+    decorator:{
+        backgroundColor:'#000959',
+        width:'100%',
+        height:200,
+    },
+    decoratorImage:{
+        height:'100%',
+        width:'100%',
+        borderBottomRightRadius:5,
+        borderBottomLeftRadius:5,
+    },
+    optionsImage:{
+        height:32,
+        width:40,
+    },
+    container: {
+        flexDirection: 'row',
+        padding: 10,
+        gap:15,
+        height:55,
+        width:'100%',
+    },
+    textContainer:{
+        height:'100%',
+        flexDirection:'column',
+        justifyContent:'center',
+
+    }
 });
 
 export default SideNavBar;

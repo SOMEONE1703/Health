@@ -9,11 +9,15 @@ import ForgotPassword from './src/pages/ForgotPassword';
 import Appointments from './src/pages/Appointments';
 import Institutions from './src/pages/Institutions';
 import Appointment from './src/pages/Appointment';
+import CreateAppointment from './src/pages/CreateAppointment';
+import ChatScreen from './src/pages/ChatScreen';
+import { StackActions } from '@react-navigation/native';
 import {RootStackParamList} from './src/types/navigation'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Signup from './src/pages/Signup';
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 // Define the navigation stack types
 
 type ScreenProps<T extends keyof RootStackParamList> = {
@@ -31,8 +35,9 @@ function App(){
       try{
       const storedToken = await AsyncStorage.getItem("Health-Token");
       setToken(storedToken);
+      console.log(storedToken);
       }catch(e){
-      console.log(e);
+        console.log(e);
       }
       
       setLoading(false);
@@ -54,6 +59,8 @@ function App(){
         <Stack.Screen name="Appointments" component={token?Appointments:Login} />
         <Stack.Screen name="Institutions" component={token?Institutions:Login} />
         <Stack.Screen name="Appointment" component={token?Appointment:Login} />
+        <Stack.Screen name="CreateAppointment" component={token?CreateAppointment:Login} />
+        <Stack.Screen name="ChatScreen" component={token?ChatScreen:Login} />
         {/* <Stack.Screen name="Profile" component={ProfileScreen} /> */}
         {/* <Stack.Screen name="Settings" component={SettingsScreen} /> */}
       </Stack.Navigator>
