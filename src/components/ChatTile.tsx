@@ -44,16 +44,16 @@ const HomeScreenTile=({ imageSource, page, navigation, title, paragraph}: Props)
 
 const styles = StyleSheet.create({
     outerTile:{
-        flexDirection: 'column',
+        flexDirection: 'row',
         elevation:5,
         backgroundColor:'#FFFFFF',
-        borderRadius:10,
+        //borderRadius:10,
         width:'95%',
     },
     image:{
         borderRadius:10,
         width:'100%',
-        height:200,
+        height:50,
     },
     shortDescription:{
         fontSize:15,

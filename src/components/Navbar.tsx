@@ -11,11 +11,10 @@ import {
 
 
 type Props={
-    title:string;
-    onClose: () => void;
+    navigation:any;
 }
   
-const NavBar=({title,onClose}:Props)=>{
+const NavBar=({navigation}:Props)=>{
     const [MenuOpen,setMenuOpen]=useState(false);
     const handleMenuClick=()=>{
         setMenuOpen(!MenuOpen);
@@ -26,22 +25,33 @@ const NavBar=({title,onClose}:Props)=>{
     style={styles.outerTile}
     >
         <TouchableOpacity
-        onPress={()=>{onClose()}}
+        style={styles.navOption}
+        onPress={()=>{console.log("what")}}
         >
             <Image
-            
             style={styles.image}
-            source={require('../../assets/pictures/appbar-icon.png')}
+            source={require('../../assets/pictures/notification.png')}
             />
         </TouchableOpacity>
-        <View
-        style={styles.optionsHolder}
-        >
-            <Text style={styles.navOption}>Home</Text>
-            <Text style={styles.navOption}>Settings</Text>
-            <Text style={styles.navOption}>Logout</Text>
-        </View>
         
+        <TouchableOpacity
+        style={styles.navOption}
+        onPress={()=>{navigation.navigate('Home')}}
+        >
+            <Image
+            style={styles.image}
+            source={require('../../assets/pictures/home.png')}
+            />
+        </TouchableOpacity>
+        <TouchableOpacity
+        style={styles.navOption}
+        onPress={()=>{console.log("what")}}
+        >
+            <Image
+            style={styles.image}
+            source={require('../../assets/pictures/profileIcon.png')}
+            />
+        </TouchableOpacity>
     </View>    
     );
 }
@@ -50,15 +60,23 @@ const styles = StyleSheet.create({
     outerTile:{
         flexDirection: 'row',
         position:'absolute',
+        justifyContent:'space-between',
         //elevation:5,
         //backgroundColor:'transparent',
-        backgroundColor:'red',
+        backgroundColor:'#EEEEEE',
         left:0,
         bottom:0,
         // borderBottomColor:'black',
         // borderBottomWidth:1,
         width:'100%',
         height:'10%',
+        paddingBottom:110,
+        elevation:5,
+        borderTopLeftRadius:10,
+        borderTopRightRadius:10,
+        borderTopWidth:1,
+        borderTopColor:'#000959',
+
     },
     optionsHolder:{
         flexDirection:'column',
@@ -68,13 +86,14 @@ const styles = StyleSheet.create({
         elevation:20
     },
     image:{
-        height:60,
-        width:60,
+        height:40,
+        width:40,
     },
     navOption: {
-        color: 'black',
-        fontSize: 18,
-        marginVertical: 10,
+        width:'33%',
+        height:'100%',
+        flexDirection:'row',
+        justifyContent:'center',
     },
 });
 

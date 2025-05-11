@@ -6,6 +6,7 @@ import { RootStackParamList } from '../types/navigation';
 import AppBar from '../components/AppBar';
 import { BASE_URL } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import NavBar from '../components/NavBar';
 
 type AppointmentScreenRouteProp = RouteProp<RootStackParamList, 'appointment'>;
 type Props = {
@@ -161,6 +162,7 @@ const Appointment : React.FC<Props> = ({navigation,route}) =>{
           </View>
         </View>
       </ScrollView>
+      <NavBar navigation={navigation} />
     </View>
   );
 };

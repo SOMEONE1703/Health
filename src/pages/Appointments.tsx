@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet,Image,TouchableOpacity } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/navigation';
 import { BASE_URL } from '@env';
@@ -7,6 +7,8 @@ import AppointmentDay from '../components/AppointmentDay';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ScrollView } from 'react-native-gesture-handler';
 import AppBar from '../components/AppBar';
+import NavBar from '../components/NavBar';
+
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Appointments'>;
 };
@@ -159,6 +161,16 @@ const Appointments : React.FC<Props> = ({navigation}) =>{
         navigation={navigation}></AppointmentDay>)}
       </View>
     </ScrollView>
+    <TouchableOpacity
+    onPress={()=>{navigation.navigate('CreateAppointment')}}
+      style={styles.addButton}
+    >
+      <Image
+        source={require('../../assets/pictures/addIcon2.png')}
+        style={{width:'110%',height:'110%'}}
+        ></Image>
+    </TouchableOpacity>
+    <NavBar navigation={navigation}></NavBar>
     </View>
   );
 };
@@ -167,6 +179,19 @@ const styles = StyleSheet.create({
   page:{
     flex:1,
   },
+  addButton:{
+    backgroundColor:'#000959',
+    width:40,
+    height:40,
+    borderRadius:'50%',
+    position:'absolute',
+    bottom:"13%",
+    right:20,
+    flexDirection:'column',
+    justifyContent:'center',
+    alignItems:'center',
+    elevation:5,
+  }
   
 });
 
