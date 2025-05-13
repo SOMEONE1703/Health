@@ -26,7 +26,7 @@ const NavBar=({navigation}:Props)=>{
     >
         <TouchableOpacity
         style={styles.navOption}
-        onPress={()=>{console.log("what")}}
+        onPress={()=>{navigation.navigate('Notifications')}}
         >
             <Image
             style={styles.image}
@@ -45,7 +45,7 @@ const NavBar=({navigation}:Props)=>{
         </TouchableOpacity>
         <TouchableOpacity
         style={styles.navOption}
-        onPress={()=>{console.log("what")}}
+        onPress={()=>{navigation.navigate('Profile')}}
         >
             <Image
             style={styles.image}
@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
         // borderBottomColor:'black',
         // borderBottomWidth:1,
         width:'100%',
-        height:'10%',
-        paddingBottom:110,
+        height:50,
+        paddingBottom:20,
         elevation:5,
         borderTopLeftRadius:10,
         borderTopRightRadius:10,
@@ -83,14 +83,14 @@ const styles = StyleSheet.create({
         backgroundColor:'yellow',
         width:'50%',
         height:'100%',
-        elevation:20
+        elevation:20,
     },
     image:{
         height:40,
         width:40,
     },
     navOption: {
-        width:'33%',
+        width:'30%',
         height:'100%',
         flexDirection:'row',
         justifyContent:'center',

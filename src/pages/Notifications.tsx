@@ -15,7 +15,7 @@ type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Login'>;
 };
 // const response=await fetch(`${BASE_URL}/api/appointments`);
-const Profile : React.FC<Props> = ({navigation}) =>{
+const Notifications : React.FC<Props> = ({navigation}) =>{
   const [Email,setEmail]=useState('');
   const [EmailFocused,setEmailFocused]=useState(false);
   const [Password,setPassword]=useState('');
@@ -75,8 +75,10 @@ const Profile : React.FC<Props> = ({navigation}) =>{
     <>
     
     <View style={styles.page}>
-      <AppBar navigation={navigation} title='Profile'></AppBar>     
-      
+        <AppBar navigation={navigation} title='Notifications'></AppBar>     
+      <Text
+        style={styles.mainTitle}
+        >No new Notifications!</Text>
 
       
       
@@ -105,4 +107,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Profile;
+export default Notifications;

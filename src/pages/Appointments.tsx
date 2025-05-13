@@ -149,7 +149,8 @@ const Appointments : React.FC<Props> = ({navigation}) =>{
     getAppointments();
   }, []);
   return (
-    <View style={{paddingTop:20}}>
+    <>
+    <View style={{paddingTop:20,flex:1}}>
     <AppBar navigation={navigation} title='Appointments'></AppBar>
     <ScrollView>
       <View style={styles.page}>
@@ -170,14 +171,16 @@ const Appointments : React.FC<Props> = ({navigation}) =>{
         style={{width:'110%',height:'110%'}}
         ></Image>
     </TouchableOpacity>
-    <NavBar navigation={navigation}></NavBar>
+    {/* <NavBar navigation={navigation}></NavBar> */}
     </View>
+    <NavBar navigation={navigation}></NavBar>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   page:{
-    flex:1,
+    //flex:1,
   },
   addButton:{
     backgroundColor:'#000959',

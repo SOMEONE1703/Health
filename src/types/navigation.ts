@@ -11,5 +11,6 @@ export type RootStackParamList = {
     CreateAppointment:undefined;
     ChatScreen:undefined;
     Chat:undefined;
+    Notifications:undefined;
     appointment:{appointment:any}
   };

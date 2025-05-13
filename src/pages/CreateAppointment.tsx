@@ -6,6 +6,7 @@ import { RootStackParamList } from '../types/navigation';
 import AppBar from '../components/AppBar';
 import { BASE_URL } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import NavBar from '../components/NavBar';
 
 type CreateAppointmentScreenRouteProp = RouteProp<RootStackParamList, 'appointment'>;
 type Props = {
@@ -88,8 +89,9 @@ const CreateAppointment : React.FC<Props> = ({navigation}) =>{
     getAppointmentDetails();
   },[]);
   return (
+    <>
     <View style={styles.container}>
-      <AppBar navigation={navigation} title={"Appointment"} />
+      <AppBar navigation={navigation} title={"Create Appointment"} />
       
       <ScrollView 
         style={styles.scrollView}
@@ -147,12 +149,14 @@ const CreateAppointment : React.FC<Props> = ({navigation}) =>{
               style={styles.saveButton}
               onPress={handleSaveClick}
             >
-              <Text style={styles.saveText}>{changed ? "Submit" : "Save"}</Text>
+              <Text style={styles.saveText}>Submit</Text>
             </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
     </View>
+    <NavBar navigation={navigation} />
+    </>
   );
 };
 

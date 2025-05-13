@@ -21,6 +21,7 @@ import {
   Colors,
   Header,
 } from 'react-native/Libraries/NewAppScreen';
+import NavBar from '../components/NavBar';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Home'>;
@@ -37,6 +38,7 @@ const Home: React.FC<Props> = ({ navigation }) =>{
   const safePadding = '5%';
 
   return (
+    <>
     <View style={{paddingTop:20}}>
     <AppBar navigation={navigation} title={"Home"}></AppBar>
     <ScrollView>
@@ -68,6 +70,8 @@ const Home: React.FC<Props> = ({ navigation }) =>{
     </View>
     </ScrollView>
     </View>
+    <NavBar navigation={navigation}></NavBar>
+    </>
   );
 }
 
@@ -77,7 +81,8 @@ const styles = StyleSheet.create({
     paddingTop:5,
     flexDirection: 'column',
     alignItems: 'center',
-    gap:10
+    gap:10,
+    paddingBottom: 110,
   },
   
 });
