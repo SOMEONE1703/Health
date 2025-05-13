@@ -15,17 +15,22 @@ type Props={
     navigation: any;
     onClose: () => void;
 }
-import tempImage from '../../assets/pictures/tempImage.jpg';
+
 import HealthImage from '../../assets/pictures/health-image1.png';
 import TransportImage from '../../assets/pictures/transport-image.png';
 import RetailImage from '../../assets/pictures/retail-image.png';
+import Health from '../../assets/pictures/Institutions4.jpg';
+import Retail from '../../assets/pictures/retail.jpg';
+import Transport from '../../assets/pictures/transport.jpg';    
 
 let deviceHeight = Dimensions.get('window').height
 const SideNavBar=({navigation,onClose}:Props)=>{
     const [MenuOpen,setMenuOpen]=useState(false);
+    const [activeSector,setActiveSector]=useState(Health);
     const handleMenuClick=()=>{
         setMenuOpen(!MenuOpen);
     };
+
 
     return(
     <View
@@ -38,10 +43,10 @@ const SideNavBar=({navigation,onClose}:Props)=>{
             <View style={styles.decorator}>
                 <Image
                 style={styles.decoratorImage}
-                source={tempImage}
+                source={activeSector}
                 />
             </View>
-            <TouchableOpacity onPress={()=>{navigation.navigate("Home")}} style={styles.container}>
+            <TouchableOpacity onPress={()=>{setActiveSector(Health);navigation.navigate("Home")}} style={styles.container}>
                 <View style={styles.textContainer}>
                     <Image source={HealthImage} style={styles.optionsImage} />
                 </View>
@@ -50,7 +55,7 @@ const SideNavBar=({navigation,onClose}:Props)=>{
                 </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={()=>{navigation.navigate("Transport")}} style={styles.container}>
+            <TouchableOpacity onPress={()=>{setActiveSector(Transport);navigation.navigate("Transport")}} style={styles.container}>
                 <View style={styles.textContainer}>
                     <Image source={TransportImage} style={styles.optionsImage} />
                 </View>
@@ -59,7 +64,7 @@ const SideNavBar=({navigation,onClose}:Props)=>{
                 </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={()=>{navigation.navigate("Retail")}} style={styles.container}>
+            <TouchableOpacity onPress={()=>{setActiveSector(Retail);navigation.navigate("Retail")}} style={styles.container}>
                 <View style={styles.textContainer}>
                 <Image source={RetailImage} style={styles.optionsImage} />
                 </View>
@@ -118,7 +123,6 @@ const styles = StyleSheet.create({
         fontWeight: '600',
     },
     decorator:{
-        backgroundColor:'#000959',
         width:'100%',
         height:200,
     },

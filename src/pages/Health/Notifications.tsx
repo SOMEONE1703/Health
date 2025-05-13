@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { View,Image, Text, ActivityIndicator, StyleSheet, TouchableOpacity, TouchableWithoutFeedback,Keyboard  } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../types/navigation';
+import { RootStackParamList } from '../../types/navigation';
 import { TextInput } from 'react-native-gesture-handler';
 import { BASE_URL } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
-import AppBar from '../components/AppBar';
-import NavBar from '../components/NavBar';
+import AppBar from '../../components/AppBar';
+import NavBar from '../../components/NavBar';
 
 //import { Image } from 'react-native-reanimated/lib/typescript/Animated';
 

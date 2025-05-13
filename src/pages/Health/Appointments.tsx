@@ -1,13 +1,13 @@
 import React,{useEffect,useState} from 'react';
 import { View, Text, Button, StyleSheet,Image,TouchableOpacity } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../types/navigation';
+import { RootStackParamList } from '../../types/navigation';
 import { BASE_URL } from '@env';
-import AppointmentDay from '../components/AppointmentDay';
+import AppointmentDay from '../../components/AppointmentDay';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ScrollView } from 'react-native-gesture-handler';
-import AppBar from '../components/AppBar';
-import NavBar from '../components/NavBar';
+import AppBar from '../../components/AppBar';
+import NavBar from '../../components/NavBar';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Appointments'>;
@@ -167,7 +167,7 @@ const Appointments : React.FC<Props> = ({navigation}) =>{
       style={styles.addButton}
     >
       <Image
-        source={require('../../assets/pictures/addIcon2.png')}
+        source={require('../../../assets/pictures/addIcon2.png')}
         style={{width:'110%',height:'110%'}}
         ></Image>
     </TouchableOpacity>

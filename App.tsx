@@ -2,15 +2,15 @@ import React,{useEffect,useState} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import Home from './src/pages/Home';
+import Home from './src/pages/Health/Home';
 import Landing from './src/pages/Landing';
 import Login from './src/pages/Login';
 import ForgotPassword from './src/pages/ForgotPassword';
-import Appointments from './src/pages/Appointments';
-import Institutions from './src/pages/Institutions';
-import Appointment from './src/pages/Appointment';
-import Notifications from './src/pages/Notifications';
-import CreateAppointment from './src/pages/CreateAppointment';
+import Appointments from './src/pages/Health/Appointments';
+import Institutions from './src/pages/Health/Institutions';
+import Appointment from './src/pages/Health/Appointment';
+import Notifications from './src/pages/Health/Notifications';
+import CreateAppointment from './src/pages/Health/CreateAppointment';
 import Profile from './src/pages/Profile';
 import ChatScreen from './src/pages/ChatScreen';
 import { StackActions } from '@react-navigation/native';
@@ -19,8 +19,6 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Signup from './src/pages/Signup';
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-// Define the navigation stack types
 
 type ScreenProps<T extends keyof RootStackParamList> = {
   navigation: StackNavigationProp<RootStackParamList, T>;

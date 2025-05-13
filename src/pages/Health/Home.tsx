@@ -1,12 +1,12 @@
 import React from 'react';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../types/navigation';
-import HomeScreenTile from '../components/HomeScreenTile';
-import AppBar from '../components/AppBar';
+import { RootStackParamList } from '../../types/navigation';
+import HomeScreenTile from '../../components/HomeScreenTile';
+import AppBar from '../../components/AppBar';
 
-import doctorImage from '../../assets/pictures/Institutions4.jpg';
-import InstitutionsImage from '../../assets/pictures/Institutions3.jpg';
-import calendarImage from '../../assets/pictures/calendar2.jpg';
+import doctorImage from '../../../assets/pictures/health-image4.jpg';
+import InstitutionsImage from '../../../assets/pictures/Institutions3.jpg';
+import calendarImage from '../../../assets/pictures/calendar2.jpg';
 import {
   Button,
   ScrollView,
@@ -21,7 +21,7 @@ import {
   Colors,
   Header,
 } from 'react-native/Libraries/NewAppScreen';
-import NavBar from '../components/NavBar';
+import NavBar from '../../components/NavBar';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Home'>;
@@ -39,7 +39,7 @@ const Home: React.FC<Props> = ({ navigation }) =>{
 
   return (
     <>
-    <View style={{paddingTop:20}}>
+    <View style={{paddingTop:safePadding}}>
     <AppBar navigation={navigation} title={"Home"}></AppBar>
     <ScrollView>
     <View style={styles.page}>

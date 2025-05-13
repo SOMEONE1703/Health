@@ -2,18 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../types/navigation';
-import AppBar from '../components/AppBar';
+import { RootStackParamList } from '../../types/navigation';
+import AppBar from '../../components/AppBar';
 import { BASE_URL } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import NavBar from '../components/NavBar';
+import NavBar from '../../components/NavBar';
 
-type CreateAppointmentScreenRouteProp = RouteProp<RootStackParamList, 'appointment'>;
+type AppointmentScreenRouteProp = RouteProp<RootStackParamList, 'appointment'>;
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Appointment'>;
+  route:AppointmentScreenRouteProp;
 };
 
-const CreateAppointment : React.FC<Props> = ({navigation}) =>{
+
+
+const Appointment : React.FC<Props> = ({navigation,route}) =>{
   const [changed,setChanged]=useState(false);
   const [loading,setLoading]=useState(false);
   const [doctor,setDoctor]=useState("");
@@ -22,6 +25,7 @@ const CreateAppointment : React.FC<Props> = ({navigation}) =>{
   const [endTime,setEndTime]=useState("");
   const [location,setLocation]=useState("");
   const [description,setDescription]=useState("");
+  const {appointment}=route.params;
   let token:string|null;
   
   const handleCancelClick=()=>{
@@ -40,7 +44,7 @@ const CreateAppointment : React.FC<Props> = ({navigation}) =>{
       }
       const response=await fetch(`${BASE_URL}/api/appointments/${appointment._id}`,
       {
-        method:"POST",
+        method:"PUT",
         headers: {
           "Authorization":`Bearer ${token}`,
           "Content-Type": "application/json"
@@ -62,6 +66,11 @@ const CreateAppointment : React.FC<Props> = ({navigation}) =>{
   };
   
   useEffect(()=>{
+    setDoctor(appointment.doctor);
+    setInstitution(appointment.institution);
+    setStartTime(appointment.startTime);
+    setEndTime(appointment.endTime)
+    setDescription("what in the actual fuck");
     const getAppointmentDetails=async()=>{
       token=await AsyncStorage.getItem("Health-Token");
       setLoading(true);
@@ -89,9 +98,8 @@ const CreateAppointment : React.FC<Props> = ({navigation}) =>{
     getAppointmentDetails();
   },[]);
   return (
-    <>
     <View style={styles.container}>
-      <AppBar navigation={navigation} title={"Create Appointment"} />
+      <AppBar navigation={navigation} title={"Appointment"} />
       
       <ScrollView 
         style={styles.scrollView}
@@ -149,14 +157,13 @@ const CreateAppointment : React.FC<Props> = ({navigation}) =>{
               style={styles.saveButton}
               onPress={handleSaveClick}
             >
-              <Text style={styles.saveText}>Submit</Text>
+              <Text style={styles.saveText}>{changed ? "Submit" : "Save"}</Text>
             </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
+      <NavBar navigation={navigation} />
     </View>
-    <NavBar navigation={navigation} />
-    </>
   );
 };
 
@@ -247,4 +254,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default CreateAppointment;
+export default Appointment;

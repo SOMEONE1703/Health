@@ -2,8 +2,6 @@ import React,{useState} from 'react';
 //menu
 import {
   StyleSheet,
-  Text,
-  useColorScheme,
   View,
   Image,
   TouchableOpacity,
