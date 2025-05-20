@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { View, Text, Button, StyleSheet, TouchableOpacity, TextInput, ScrollView,StatusBar } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../types/navigation';
@@ -98,6 +98,8 @@ const Appointment : React.FC<Props> = ({navigation,route}) =>{
     getAppointmentDetails();
   },[]);
   return (
+    <>
+    <StatusBar barStyle="dark-content"/>
     <View style={styles.container}>
       <AppBar navigation={navigation} title={"Appointment"} />
       
@@ -164,6 +166,7 @@ const Appointment : React.FC<Props> = ({navigation,route}) =>{
       </ScrollView>
       <NavBar navigation={navigation} />
     </View>
+    </>
   );
 };
 

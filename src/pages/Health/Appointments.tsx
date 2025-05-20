@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react';
-import { View, Text, Button, StyleSheet,Image,TouchableOpacity } from 'react-native';
+import { View, Text, Button, StyleSheet,Image,TouchableOpacity, StatusBar } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../types/navigation';
 import { BASE_URL } from '@env';
@@ -150,6 +150,7 @@ const Appointments : React.FC<Props> = ({navigation}) =>{
   }, []);
   return (
     <>
+    <StatusBar barStyle="dark-content"/>
     <View style={{paddingTop:20,flex:1}}>
     <AppBar navigation={navigation} title='Appointments'></AppBar>
     <ScrollView>

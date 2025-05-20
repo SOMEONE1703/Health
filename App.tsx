@@ -13,6 +13,7 @@ import Notifications from './src/pages/Health/Notifications';
 import CreateAppointment from './src/pages/Health/CreateAppointment';
 import Profile from './src/pages/Profile';
 import ChatScreen from './src/pages/ChatScreen';
+import Chat from './src/pages/Chat';
 import { StackActions } from '@react-navigation/native';
 import {RootStackParamList} from './src/types/navigation'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -63,6 +64,7 @@ function App(){
         <Stack.Screen name="CreateAppointment" component={token?CreateAppointment:Login} />
         <Stack.Screen name="ChatScreen" component={token?ChatScreen:Login} />
         <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Chat" component={token?Chat:Login} />
         {/* <Stack.Screen name="Settings" component={SettingsScreen} /> */}
       </Stack.Navigator>
       <Toast/>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { View, Text, Button, StyleSheet, TouchableOpacity, TextInput, ScrollView, StatusBar } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../types/navigation';
@@ -90,6 +90,7 @@ const CreateAppointment : React.FC<Props> = ({navigation}) =>{
   },[]);
   return (
     <>
+    <StatusBar barStyle="dark-content"/>
     <View style={styles.container}>
       <AppBar navigation={navigation} title={"Create Appointment"} />
       

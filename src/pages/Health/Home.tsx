@@ -39,6 +39,7 @@ const Home: React.FC<Props> = ({ navigation }) =>{
 
   return (
     <>
+    <StatusBar barStyle="dark-content"/>
     <View style={{paddingTop:safePadding}}>
     <AppBar navigation={navigation} title={"Home"}></AppBar>
     <ScrollView>
@@ -65,7 +66,7 @@ const Home: React.FC<Props> = ({ navigation }) =>{
       page = {'Landing'}
       imageSource = {doctorImage}
       title = {'Temp'}
-      paragraph={'We are here to help you, with whatever you need!'}
+      paragraph={'Please ignore this!'}
       ></HomeScreenTile>
     </View>
     </ScrollView>

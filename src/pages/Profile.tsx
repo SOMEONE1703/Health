@@ -1,5 +1,5 @@
 import React, { use, useState, useEffect } from 'react';
-import { View,Image, Text, ActivityIndicator, StyleSheet, TouchableOpacity, TouchableWithoutFeedback,Keyboard  } from 'react-native';
+import { View,Image, Text, ActivityIndicator, StyleSheet, TouchableOpacity, TouchableWithoutFeedback,Keyboard, StatusBar  } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/navigation';
 import { TextInput } from 'react-native-gesture-handler';
@@ -63,7 +63,7 @@ const Profile : React.FC<Props> = ({navigation}) =>{
 
   return (
     <>
-    
+    <StatusBar barStyle="dark-content"/>
     <View style={styles.page}>
       <AppBar navigation={navigation} title='Profile'></AppBar>     
       <View style={{alignItems:'center',width:'100%',height:'84%',gap:20, justifyContent:'space-between'}}>
