@@ -32,6 +32,7 @@ const Profile : React.FC<Props> = ({navigation}) =>{
     const getUserDetails=async()=>{
       const token=await AsyncStorage.getItem("Health-Token");
       setLoading(true);
+      console.log("getting user details")
       try{
         const response=await fetch(`${BASE_URL}/api/user/`,
         {

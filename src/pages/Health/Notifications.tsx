@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View,Image, Text, ActivityIndicator, StyleSheet, TouchableOpacity, TouchableWithoutFeedback,Keyboard  } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../types/navigation';
@@ -8,7 +8,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
 import AppBar from '../../components/AppBar';
 import NavBar from '../../components/NavBar';
-
+import NotificationTile from '../../components/NotificationTile';
+import { notification } from '../../types/notification';
 //import { Image } from 'react-native-reanimated/lib/typescript/Animated';
 
 type Props = {
@@ -16,72 +17,66 @@ type Props = {
 };
 // const response=await fetch(`${BASE_URL}/api/appointments`);
 const Notifications : React.FC<Props> = ({navigation}) =>{
-  const [Email,setEmail]=useState('');
-  const [EmailFocused,setEmailFocused]=useState(false);
-  const [Password,setPassword]=useState('');
-  const [PasswordFocused,setPasswordFocused]=useState(false);
-  const [error, setError] = useState('');
-  const [Loading,setLoading]=useState(false);
+  const [Notifications, setNotifications] = useState<notification[]>([]);
 
-  const googleSubmit=async()=>{
-    setLoading(true);
-    try{
-      Toast.show({
-        type: 'error', // or 'error' | 'info'
-        text1: 'Not Implemented',
-      });
-    }
-    catch(error:any){
-      console.error("Login error:",error.message);
-    }
-    finally{
-      setLoading(false);
-    }
-  }
-  const handleSubmit=async()=>{
-    setLoading(true);
-    if(Loading){
-      console.log("already loading");
-      return;
-    }
-    try{
-      const response=await fetch(`${BASE_URL}/api/auth/login`,{
-        method:"POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: Email, password: Password }),
-      });
-      
-      const data=await response.json();
-      if (!response.ok) {
-        console.log(response);
-        throw new Error(data.error || "Login failed");
+  useEffect(() => {
+    setNotifications([
+      {
+        id: 1,
+        title: 'New Appointment',
+        description: 'You have a new appointment scheduled for tomorrow at 10 AM.',
+      },
+      {
+        id: 2,
+        title: 'Health Tips',
+        description: 'Remember to drink plenty of water and stay active!',
+      },
+    ]);
+    const fetchNotifications = async () => {
+      try {
+        const token = await AsyncStorage.getItem('Health-Token');
+        if (!token) {
+          console.error('No token found');
+          return;
+        }
+        const response = await fetch(`${BASE_URL}/api/notifications`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setNotifications(data);
+      } catch (error) {
+        console.error('Error fetching notifications:', error);
       }
-      await AsyncStorage.setItem("Health-Token", data.token); // has the userId in database
-      //await AsyncStorage.setItem("Health-Role",data.role);
-      navigation.navigate("Home");
-    }
-    catch(error:any){
-      console.error("Login error:",error.message);
-      
-    }
-    finally{
-      setLoading(false);
-    }
-  };
+    };
+
+    fetchNotifications();
+  }, []);
+  
 
   return (
     <>
-    
     <View style={styles.page}>
         <AppBar navigation={navigation} title='Notifications'></AppBar>     
-      <Text
-        style={styles.mainTitle}
-        >No new Notifications!</Text>
 
-      
-      
+        {Notifications.length > 0 ? (
+          Notifications.map((notification) => (
+            <NotificationTile
+              key={notification.id}
+              title={notification.title}
+              description={notification.description}
+            />
+          ))
+        ) : (
+          <Text
+            style={styles.mainTitle}
+          >No new Notifications!</Text>)
+        }
+            
     </View>
     <NavBar navigation={navigation} />
     </>
@@ -94,7 +89,7 @@ const styles = StyleSheet.create({
     paddingTop:20,
 
     alignItems:'center',
-    gap: 30
+    gap: 5
   },
   mainTitle:{
     fontSize:30,

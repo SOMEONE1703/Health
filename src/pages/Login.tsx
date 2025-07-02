@@ -43,6 +43,7 @@ const Login : React.FC<Props> = ({navigation}) =>{
       return;
     }
     try{
+      console.log(`${BASE_URL}/api/auth/login`);
       const response=await fetch(`${BASE_URL}/api/auth/login`,{
         method:"POST",
         headers: {
@@ -58,6 +59,9 @@ const Login : React.FC<Props> = ({navigation}) =>{
       }
       await AsyncStorage.setItem("Health-Token", data.token); // has the userId in database
       //await AsyncStorage.setItem("Health-Role",data.role);
+      console.log(`data.token:${data.token}`);
+      const token1=await AsyncStorage.getItem("Health-Token");
+      console.log(`storage token:${token1}`);
       navigation.navigate("Home");
     }
     catch(error:any){

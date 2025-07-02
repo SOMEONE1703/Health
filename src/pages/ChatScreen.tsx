@@ -16,7 +16,6 @@ import { BASE_URL } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
 
-
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Home'>;
 };
@@ -68,9 +67,6 @@ const ChatScreen: React.FC<Props> = ({ navigation }) => {
     }))
   ]);
 
-  const handleChatPress = (chat: Chat) => {
-    navigation.navigate('Chat');
-  };
   useEffect(() => {
     const token = AsyncStorage.getItem("Health-Token");
     const getChats=async () => {

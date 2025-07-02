@@ -1,3 +1,4 @@
+import { Socket } from 'socket.io-client';
 export type RootStackParamList = {
     Landing:undefined;
     Home: undefined;
@@ -9,9 +10,10 @@ export type RootStackParamList = {
     Institutions:undefined;
     Appointment:undefined;
     CreateAppointment:undefined;
-    ChatScreen:undefined;
+    ChatScreen:{socket:Socket};
     Chat:undefined;
     Notifications:undefined;
     appointment:{appointment:any}
     chat:{id:number;name:string;avatar?:any};
+    
   };

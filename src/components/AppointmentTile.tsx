@@ -14,10 +14,9 @@ import { appointment } from '../types/appointment';
 type Props = {
   appointment:appointment;
   navigation:any;
-  key:number;
 };
   
-const AppointmentTile=({key,appointment,navigation}: Props)=>{
+const AppointmentTile=({appointment,navigation}: Props)=>{
     const handleClick=()=>{
         console.log("clicked")
         navigation.navigate("Appointment",{appointment:appointment});
