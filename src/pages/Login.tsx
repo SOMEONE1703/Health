@@ -6,7 +6,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import { BASE_URL } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
-
+import { useSocket ,registerSocketConnection } from '../Contexts/SocketContext';
 //import { Image } from 'react-native-reanimated/lib/typescript/Animated';
 
 type Props = {
@@ -20,7 +20,7 @@ const Login : React.FC<Props> = ({navigation}) =>{
   const [PasswordFocused,setPasswordFocused]=useState(false);
   const [error, setError] = useState('');
   const [Loading,setLoading]=useState(false);
-
+  const { socket } = useSocket();
   const googleSubmit=async()=>{
     setLoading(true);
     try{
@@ -53,16 +53,19 @@ const Login : React.FC<Props> = ({navigation}) =>{
       });
       
       const data=await response.json();
+      console.log("Response data:",data);
       if (!response.ok) {
         console.log(response);
         throw new Error(data.error || "Login failed");
       }
+      registerSocketConnection(data.userId,socket);
       await AsyncStorage.setItem("Health-Token", data.token); // has the userId in database
       //await AsyncStorage.setItem("Health-Role",data.role);
-      console.log(`data.token:${data.token}`);
-      const token1=await AsyncStorage.getItem("Health-Token");
-      console.log(`storage token:${token1}`);
+      //console.log(`data.token:${data.token}`);
+      //const token1=await AsyncStorage.getItem("Health-Token");
+      //console.log(`storage token:${token1}`);
       navigation.navigate("Home");
+      
     }
     catch(error:any){
       console.error("Login error:",error.message);

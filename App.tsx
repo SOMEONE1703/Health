@@ -21,7 +21,7 @@ import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BASE_URL } from '@env';
 import io, { Socket } from 'socket.io-client';
-import { useSocket,SocketProvider } from './src/Contexts/SocketContext';
+import { useSocket,SocketProvider, registerSocketConnection } from './src/Contexts/SocketContext';
 
 type ScreenProps<T extends keyof RootStackParamList> = {
   navigation: StackNavigationProp<RootStackParamList, T>;
@@ -34,56 +34,14 @@ function App() {
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState<string | null>(null);
-  const { socket, isConnected } = useSocket();
-  
-  const configureSocketConnection1 = (userId: string,socket:any) => {
-    console.log("Configuring socket connection for user:", userId);
-    if (!socket) {
-      Toast.show({
-        type: 'error',
-        text1: 'Socket Error',
-        text2: 'Socket is not initialized',
-      });
-      console.log("This is odd");
-      console.error("Socket is not initialized");
-      return;
-    }
-    console.log("Socket initialized:", socket.id);
-    Toast.show({
-      type: 'success',
-      text1: 'Socket Connection',
-      text2: `Connected to socket server for user ${userId}`,
-    });
-    socket.on("connect", () => {
-      console.log("Connected to socket server");
-    });
-    socket.on("idRequest", (data: any) => {
-      console.log("Received idRequest with data:", data);
-      const response = { received: true, id: userId };
-      socket.emit("idResponse", response);
-    });
-
-    socket.on("disconnect", () => {
-      console.log("Disconnected from socket server");
-    });
-
-    socket.on("receiveNotification", (notification: any) => {
-      console.log("Received notification:", notification);
-        //create popup notification
-
-      }
-    );
-  };
-
-  
-  console.log("Socket connection status:", isConnected);
+  var localSocket=useSocket();
   
   useEffect(() => {
     const checkToken = async () => {
       try {
         const storedToken = await AsyncStorage.getItem("Health-Token");
         setToken(storedToken);
-        
+        console.log("Checking validity of Stored token:", storedToken);
         if (!storedToken) {
           setLoading(false);
           return;
@@ -105,7 +63,7 @@ function App() {
         }
         console.log("User data:", data);
         setUserId(data.id);
-        configureSocketConnection1(data.id,socket);
+        registerSocketConnection(data.id,localSocket);
       } catch (e) {
         console.log(e);
         // Clear invalid token
@@ -120,11 +78,12 @@ function App() {
     
     return () => {
       console.log("Cleaning up socket connection");
-      if (socket) {
-        socket.off("connect");
-        socket.off("disconnect");
-        socket.off("receiveNotification");
-        socket.disconnect();
+      if (localSocket) {
+        console.log("Disconnecting socket");
+        // localSocket.off("connect");
+        // localSocket.off("disconnect");
+        // localSocket.off("receiveNotification");
+        // localSocket.disconnect();
       }
     };
   }, []);

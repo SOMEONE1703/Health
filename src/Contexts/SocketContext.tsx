@@ -72,3 +72,24 @@ export const useSocket = () => {
   }
   return context;
 };
+
+export const registerSocketConnection = (userId: string,socket: any,) => {
+  console.log("Registering socket ID  for user:", userId);
+  if (!socket || !socket.id) {
+    console.error("Socket is not initialized");
+    return;
+  }
+  console.log("Socket is initialized:", socket.id, "Registering user");
+  
+  const response = { received: true, id: userId };
+  socket.emit("idResponse", response);
+
+  socket.on("disconnect", () => {
+    console.log("Disconnected from socket server");
+  });
+
+  socket.on("receiveNotification", (notification: any) => {
+    console.log("Received notification:", notification);
+    // Handle notification logic here
+  });
+}
