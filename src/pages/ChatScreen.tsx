@@ -15,7 +15,7 @@ import ChatTile from '../components/ChatTile';
 import { BASE_URL } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
-
+import { useSocket } from '../Contexts/SocketContext';
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Home'>;
 };
@@ -66,6 +66,8 @@ const ChatScreen: React.FC<Props> = ({ navigation }) => {
       avatar: require('../../assets/pictures/profileIcon.png')
     }))
   ]);
+  const { socket } = useSocket();
+  console.log("Socket in ChatScreen:", socket);
 
   useEffect(() => {
     const token = AsyncStorage.getItem("Health-Token");

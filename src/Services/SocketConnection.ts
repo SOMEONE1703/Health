@@ -1,46 +1,67 @@
-import io, { Socket } from 'socket.io-client';
-import { BASE_URL } from '@env';
-
-let socket: Socket | null = null;
-
-export const initializeSocket = (userId: string): Socket => {
-  if (socket) {
-    return socket; // Return existing socket if already initialized
+export const registerSocketConnection = (userId: string,socket: any,) => {
+  console.log("Registering socket ID  for user:", userId);
+  if (!socket || !socket.id) {
+    console.error("Socket is not initialized");
+    return;
   }
-
-  console.log("Initializing socket connection");
-  socket = io(BASE_URL);
-
-  socket.on("connect", () => {
-    console.log("Connected to socket server");
-  });
-
-  socket.on("idRequest", (data: any, callback: (response: any) => void) => {
-    console.log(data);
-    const response = { received: true, id: userId };
-    socket?.emit("idResponse", response);
-  });
+  console.log("Socket is initialized:", socket.id, "Registering user");
+  
+  const response = { received: true, id: userId };
+  socket.emit("idResponse", response);
 
   socket.on("disconnect", () => {
     console.log("Disconnected from socket server");
   });
 
-  return socket;
-};
+  socket.on("receiveNotification", (notification: any) => {
+    console.log("Received notification:", notification);
+    // Handle notification logic here
+  });
+}
 
-export const getSocket = (): Socket | null => {
-  return socket;
-};
-
-export const disconnectSocket = (): void => {
+export const disconnectSocket = (socket:any): void => {
   if (socket) {
+    console.log("Disconnecting socket");
     socket.disconnect();
-    socket = null;
+  } else {
+    console.error("Socket is not initialized, cannot disconnect");
   }
 };
 
-export const receiveNotificationHandler = (handler: (notification: any) => void): void => {
+export const receiveNotificationHandler = (socket:any,handler: (notification: any) => void): void => {
   if (socket) {
     socket.on("receiveNotification", handler);
+  }
+};
+
+export const receiveMessageHandler = (socket:any, handler: (message: any) => void): void => {
+  if (socket) {
+    socket.on("receiveMessage", handler);
+  } else {
+    console.error("Socket is not initialized, cannot handle message");
+  }
+};
+
+export const sendMessage = (socket:any, message: any): void => {
+  if (socket && socket.connected) {
+    socket.emit("sendMessage", message);
+  } else {
+    console.error("Socket is not connected, cannot send message");
+  }
+};
+
+export const readMessage = (socket:any, messageId: string): void => {
+  if (socket && socket.connected) {
+    socket.emit("readMessage", { messageId });
+  } else {
+    console.error("Socket is not connected, cannot read message");
+  }
+};
+
+export const readNotification = (socket:any, notificationId: string): void => {
+  if (socket && socket.connected) {
+    socket.emit("readNotification", { notificationId });
+  } else {
+    console.error("Socket is not connected, cannot read notification");
   }
 };
