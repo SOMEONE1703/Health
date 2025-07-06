@@ -19,8 +19,11 @@ import Signup from './src/pages/Signup';
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BASE_URL } from '@env';
-import { useSocket, registerSocketConnection } from './src/Contexts/SocketContext';
+import { useSocket } from './src/Contexts/SocketContext';
 import { navigationRef } from './src/Services/NavigationRef';
+import { registerSocketConnection } from './src/Services/SocketConnection';
+import { useAuth,useUpdateAuth } from './src/Contexts/AuthContext';
+
 
 type ScreenProps<T extends keyof RootStackParamList> = {
   navigation: StackNavigationProp<RootStackParamList, T>;
@@ -34,7 +37,7 @@ function MainApp() {
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState<string | null>(null);
   var localSocket=useSocket();
-  
+  const updateAuth = useUpdateAuth();
   console.log("In MainApp, localSocket:", localSocket); 
   useEffect(() => {
     const checkToken = async () => {
@@ -63,6 +66,7 @@ function MainApp() {
         }
         console.log("User data:", data);
         setUserId(data.id);
+        updateAuth(data.username, data.id, storedToken);
         registerSocketConnection(data.id,localSocket.socket);
         //if token is valid, navigate to Home
         if(navigationRef.isReady()) {
@@ -85,8 +89,10 @@ function MainApp() {
     
     return () => {
       console.log("Cleaning up socket connection");
-      if (localSocket) {
+      if (localSocket.socket) {
         console.log("Disconnecting socket");
+        // Unregister socket listeners if necessary
+        // localSocket.socket.off("idResponse");
         // localSocket.off("connect");
         // localSocket.off("disconnect");
         // localSocket.off("receiveNotification");

@@ -7,6 +7,7 @@ import { BASE_URL } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
 import { useSocket ,registerSocketConnection } from '../Contexts/SocketContext';
+import { useAuth, useUpdateAuth } from '../Contexts/AuthContext';
 //import { Image } from 'react-native-reanimated/lib/typescript/Animated';
 
 type Props = {
@@ -21,6 +22,7 @@ const Login : React.FC<Props> = ({navigation}) =>{
   const [error, setError] = useState('');
   const [Loading,setLoading]=useState(false);
   const { socket } = useSocket();
+  const updateAuth = useUpdateAuth();
   const googleSubmit=async()=>{
     setLoading(true);
     try{
@@ -58,6 +60,7 @@ const Login : React.FC<Props> = ({navigation}) =>{
         console.log(response);
         throw new Error(data.error || "Login failed");
       }
+      updateAuth(data.username, data.userId, data.token);
       registerSocketConnection(data.userId,socket);
       await AsyncStorage.setItem("Health-Token", data.token); // has the userId in database
       //await AsyncStorage.setItem("Health-Role",data.role);

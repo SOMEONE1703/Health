@@ -39,7 +39,7 @@ const Notifications : React.FC<Props> = ({navigation}) =>{
           console.error('No token found');
           return;
         }
-        const response = await fetch(`${BASE_URL}/api/notifications`, {
+        const response = await fetch(`${BASE_URL}/api/notifications/unread`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -48,7 +48,17 @@ const Notifications : React.FC<Props> = ({navigation}) =>{
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        setNotifications(data);
+        console.log('Fetched notifications:', data);
+        //append to notifications
+        setNotifications((prevNotifications) => [
+          ...prevNotifications,
+          ...data.data.map((notification: notification) => ({
+            id: notification.id,
+            title: notification.title,
+            description: notification.description,
+          })),
+        ]);
+        
       } catch (error) {
         console.error('Error fetching notifications:', error);
       }

@@ -16,6 +16,8 @@ import { BASE_URL } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
 import { useSocket } from '../Contexts/SocketContext';
+import { useAuth } from '../Contexts/AuthContext';
+import { receiveMessageHandler} from '../Services/SocketConnection';
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Home'>;
 };
@@ -67,20 +69,53 @@ const ChatScreen: React.FC<Props> = ({ navigation }) => {
     }))
   ]);
   const { socket } = useSocket();
-  console.log("Socket in ChatScreen:", socket);
+  const { userId } = useAuth();
+  //console.log("Socket in ChatScreen:", socket);
+
+  // socket listeners
+  const handleReceiveMessage = (message: any) => {
+    console.log("Received message in ChatScreen:", message);
+  };
+  receiveMessageHandler(socket, handleReceiveMessage);
 
   useEffect(() => {
-    const token = AsyncStorage.getItem("Health-Token");
+    
     const getChats=async () => {
       try {
-        const response = await fetch(`${BASE_URL}/api/chats`, {
+        const token = await AsyncStorage.getItem("Health-Token");
+        const response = await fetch(`${BASE_URL}/api/chats/${userId}`, {
           headers: {
             "Authorization":`Bearer ${token}`,
             "Content-Type": "application/json"
           },
         });
+        if (!response.ok) {
+          console.error("Failed to fetch chats:", response.statusText);
+          Toast.show({
+            type: 'error',
+            text1: 'Error',
+            text2: 'Failed to fetch chats. Please try again later.',
+            position: 'bottom',
+            visibilityTime: 3000,
+            autoHide: true,
+            topOffset: 30,
+            bottomOffset: 40,
+          });
+          return;
+        }
+        console.log("Chats fetched successfully");
         const data = await response.json();
-        setChats(data);
+        console.log("Chats data:", data);
+        //append to chats
+        setChats((prevChats) => [...prevChats, ...data.map((chat: any) => ({
+          id: chat.id,
+          name: chat.name,
+          lastMessage: chat.lastMessage,
+          time: chat.time,
+          date: chat.date,
+          isRead: chat.isRead,
+          avatar: chat.avatar || require('../../assets/pictures/profileIcon.png') // Default avatar if none provided
+        }))]);
       } catch (error) {
         console.log("Error fetching chats:", error);
         Toast.show({
